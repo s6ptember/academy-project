@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+{% block title %}Оплата отменена - CodeMaster{% endblock %}
+{% block content %}
+<section class="py-20 px-4">
+    <div class="container mx-auto max-w-2xl text-center">
+        <h1 class="text-4xl font-bold mb-6 text-white fade-in">Платеж отменен</h1>
+        <p class="text-gray-400 mb-8 fade-in delay-100">К сожалению, платеж не был завершен. Попробуйте снова.</p>
+        <a href="{% url 'orders:checkout' order.course.id %}" class="btn-animate bg-emerald-600 hover:bg-emerald-700 py-3 px-6 rounded-lg font-medium text-white fade-in delay-200">
+            Попробовать снова
+        </a>
+    </div>
+</section>
+{% endblock %}

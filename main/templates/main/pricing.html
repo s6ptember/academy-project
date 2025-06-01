@@ -1,0 +1,100 @@
+{% extends 'main/base.html' %}
+{% block title %}Цены - CodeMaster{% endblock %}
+{% block content %}
+<section id="pricing" class="py-20 px-4">
+    <div class="container mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4 fade-in">Выберите свой план</h2>
+            <p class="text-gray-400 text-lg fade-in delay-100">Гибкие тарифы для любого бюджета</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 price-card fade-in-left delay-200">
+                <h3 class="text-xl font-semibold text-white mb-2">Базовый</h3>
+                <p class="text-gray-400 mb-4">Для начинающих разработчиков</p>
+                <div class="text-3xl font-bold text-white mb-6">
+                    ₽9,990
+                    <span class="text-lg font-normal text-gray-400">/месяц</span>
+                </div>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-emerald-500"></i>
+                        <span class="text-gray-300">Доступ к 5 курсам</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-emerald-500"></i>
+                        <span class="text-gray-300">Базовая поддержка</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-emerald-500"></i>
+                        <span class="text-gray-300">Сертификат о прохождении</span>
+                    </li>
+                </ul>
+                <button class="w-full btn-animate bg-gray-700 hover:bg-gray-600 py-3 rounded-lg font-medium">
+                    Выбрать план
+                </button>
+            </div>
+            <div class="bg-gray-800 border border-emerald-600 rounded-lg p-6 price-card relative fade-in delay-300">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-sm">Популярный</span>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Профессиональный</h3>
+                <p class="text-gray-400 mb-4">Для серьезного изучения</p>
+                <div class="text-3xl font-bold text-white mb-6">
+                    ₽19,990
+                    <span class="text-lg font-normal text-gray-400">/месяц</span>
+                </div>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-emerald-500"></i>
+                        <span class="text-gray-300">Доступ ко всем курсам</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-emerald-500"></i>
+                        <span class="text-gray-300">Менторская поддержка</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-emerald-500"></i>
+                        <span class="text-gray-300">Код-ревью проектов</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-emerald-500"></i>
+                        <span class="text-gray-300">Помощь в трудоустройстве</span>
+                    </li>
+                </ul>
+                <button class="w-full btn-animate bg-emerald-600 hover:bg-emerald-700 py-3 rounded-lg font-medium">
+                    Выбрать план
+                </button>
+            </div>
+            <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 price-card fade-in-right delay-400">
+                <h3 class="text-xl font-semibold text-white mb-2">Корпоративный</h3>
+                <p class="text-gray-400 mb-4">Для команд и компаний</p>
+                <div class="text-3xl font-bold text-white mb-6">
+                    ₽49,990
+                    <span class="text-lg font-normal text-gray-400">/месяц</span>
+                </div>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-emerald-500"></i>
+                        <span class="text-gray-300">Все возможности Pro</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-emerald-500"></i>
+                        <span class="text-gray-300">До 50 пользователей</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-emerald-500"></i>
+                        <span class="text-gray-300">Персональный менеджер</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-emerald-500"></i>
+                        <span class="text-gray-300">Корпоративные курсы</span>
+                    </li>
+                </ul>
+                <button class="w-full btn-animate bg-gray-700 hover:bg-gray-600 py-3 rounded-lg font-medium">
+                    Связаться с нами
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

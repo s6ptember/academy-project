@@ -1,0 +1,77 @@
+{% extends 'main/base.html' %}
+{% block title %}Отзывы - CodeMaster{% endblock %}
+{% block content %}
+<section id="reviews" class="py-20 px-4 bg-gray-900/50">
+    <div class="container mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4 fade-in">Отзывы студентов</h2>
+            <p class="text-gray-400 text-lg fade-in delay-100">Узнайте, что говорят наши выпускники</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 review-card fade-in-left delay-200">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center text-white font-semibold">
+                        АС
+                    </div>
+                    <div>
+                        <div class="font-semibold text-white">Анна Смирнова</div>
+                        <div class="text-sm text-gray-400">Frontend разработчик</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1 mb-4">
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                </div>
+                <p class="text-gray-300">
+                    "Отличные курсы! За 3 месяца изучила React и устроилась на работу. Менторы всегда помогали и отвечали на вопросы."
+                </p>
+            </div>
+            <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 review-card fade-in delay-300">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center text-white font-semibold">
+                        МК
+                    </div>
+                    <div>
+                        <div class="font-semibold text-white">Михаил Козлов</div>
+                        <div class="text-sm text-gray-400">Fullstack разработчик</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1 mb-4">
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                </div>
+                <p class="text-gray-300">
+                    "Практический подход - это то, что нужно! Создал несколько проектов для портфолио и получил оффер в крупной компании."
+                </p>
+            </div>
+            <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 review-card fade-in-right delay-400">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center text-white font-semibold">
+                        ЕП
+                    </div>
+                    <div>
+                        <div class="font-semibold text-white">Елена Петрова</div>
+                        <div class="text-sm text-gray-400">Python разработчик</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1 mb-4">
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                    <i class="fas fa-star text-yellow-400 star"></i>
+                </div>
+                <p class="text-gray-300">
+                    "Начинала с нуля, сейчас работаю Python-разработчиком. Курсы структурированы и понятны даже новичкам."
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

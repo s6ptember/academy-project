@@ -1,0 +1,81 @@
+{% extends 'main/base.html' %}
+{% block title %}Профиль - CodeMaster{% endblock %}
+{% block content %}
+<section class="py-20 px-4">
+    <div class="container mx-auto max-w-4xl">
+        <h1 class="text-4xl font-bold mb-6 text-white fade-in bg-gradient-to-r from-emerald-400 to-cyan-600 bg-clip-text text-transparent">Ваш профиль</h1>
+        {% if messages %}
+            <div class="mb-4 fade-in delay-100">
+                {% for message in messages %}
+                    <div class="p-4 rounded-lg {% if message.tags == 'success' %}bg-emerald-800 text-emerald-200{% else %}bg-red-800 text-red-200{% endif %} shadow-md transition-transform duration-300 hover:scale-102">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div id="account-details" class="bg-gray-800 p-6 rounded-lg border border-gray-700 fade-in delay-100 card-hover mb-8">
+            {% include 'users/partials/account_details.html' %}
+        </div>
+        <!-- Purchased Courses Section -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 fade-in delay-200 card-hover mb-8">
+            <h2 class="text-2xl font-semibold text-white mb-4">Ваши курсы</h2>
+            {% if purchased_courses %}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% for course in purchased_courses %}
+                        <div class="bg-gray-900 border border-gray-600 rounded-lg overflow-hidden course-card fade-in delay-300">
+                            <div class="w-full h-32 bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center">
+                                <i class="fas fa-code text-4xl text-white"></i>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-white mb-2">{{ course.title }}</h3>
+                                <p class="text-gray-400 text-sm mb-4">{{ course.description|truncatewords:20 }}</p>
+                                <a href="{% url 'main:course_detail' course.id %}" class="text-emerald-400 hover:text-emerald-300 text-sm font-medium relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-emerald-400 after:transition-all after:duration-300 hover:after:w-full">
+                                    Перейти к курсу
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-gray-400">Вы пока не приобрели ни одного курса. <a href="{% url 'main:course_list' %}" class="text-emerald-400 hover:text-emerald-300">Выберите курс</a></p>
+            {% endif %}
+        </div>
+        <!-- Orders Section -->
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 fade-in delay-300 card-hover">
+            <h2 class="text-2xl font-semibold text-white mb-4">История заказов</h2>
+            {% if user.orders.all %}
+                <div class="overflow-x-auto">
+                    <table class="w-full text-gray-200">
+                        <thead>
+                            <tr class="border-b border-gray-600">
+                                <th class="py-2 px-4 text-left">Номер заказа</th>
+                                <th class="py-2 px-4 text-left">Дата</th>
+                                <th class="py-2 px-4 text-left">Курс</th>
+                                <th class="py-2 px-4 text-left">Сумма</th>
+                                <th class="py-2 px-4 text-left">Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in user.orders.all %}
+                                <tr class="border-b border-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                                    <td class="py-2 px-4">#{{ order.id }}</td>
+                                    <td class="py-2 px-4">{{ order.created_at|date:"d.m.Y" }}</td>
+                                    <td class="py-2 px-4">{{ order.course.title }}</td>
+                                    <td class="py-2 px-4">₽{{ order.total_price }}</td>
+                                    <td class="py-2 px-4">
+                                        <span class="{% if order.status == 'completed' %}text-emerald-400{% else %}text-yellow-400{% endif %}">
+                                            {{ order.get_status_display }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-gray-400">У вас пока нет заказов.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

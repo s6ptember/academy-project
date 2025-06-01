@@ -1,0 +1,21 @@
+<div class="space-y-4">
+    <div>
+        <span class="text-gray-400">Имя:</span>
+        <span class="text-white">{{ user.first_name }}</span>
+    </div>
+    <div>
+        <span class="text-gray-400">Фамилия:</span>
+        <span class="text-white">{{ user.last_name }}</span>
+    </div>
+    <div>
+        <span class="text-gray-400">Email:</span>
+        <span class="text-white">{{ user.email }}</span>
+    </div>
+    <button 
+        hx-get="{% url 'users:edit_account_details' %}" 
+        hx-target="#account-details" 
+        hx-swap="innerHTML"
+        class="btn-animate bg-emerald-600 hover:bg-emerald-700 py-2 px-4 rounded-lg font-medium text-white mt-4">
+        Редактировать
+    </button>
+</div>

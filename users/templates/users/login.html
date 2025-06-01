@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% block title %}Вход - CodeMaster{% endblock %}
+{% block content %}
+<section class="py-20 px-4">
+    <div class="container mx-auto max-w-md">
+        <h1 class="text-4xl font-bold mb-6 text-white fade-in bg-gradient-to-r from-emerald-400 to-cyan-600 bg-clip-text text-transparent">Вход</h1>
+        {% if messages %}
+            <div class="mb-4 fade-in delay-100">
+                {% for message in messages %}
+                    <div class="p-4 rounded-lg {% if message.tags == 'success' %}bg-emerald-800 text-emerald-200{% else %}bg-red-800 text-red-200{% endif %} shadow-md transition-transform duration-300 hover:scale-102">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <form method="post" class="bg-gray-800 p-6 rounded-lg border border-gray-700 fade-in delay-100 card-hover">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-4">
+                    <label for="{{ field.id_for_label }}" class="block text-gray-200 font-medium mb-2">
+                        {{ field.label }}
+                    </label>
+                    <input type="{{ field.field.widget.input_type }}"
+                           name="{{ field.name }}"
+                           id="{{ field.id_for_label }}"
+                           class="w-full p-3 bg-gray-900 border border-gray-600 rounded-lg text-gray-200 focus:outline-none focus:border-emerald-500 transition-colors duration-200"
+                           {% if field.value %}value="{{ field.value }}"{% endif %}
+                           placeholder="Введите {{ field.label|lower }}">
+                    {% if field.errors %}
+                        <p class="text-red-400 text-sm mt-1">{{ field.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="w-full btn-animate bg-emerald-600 hover:bg-emerald-700 py-3 px-4 rounded-lg font-medium text-white transition-transform duration-300 hover:scale-105">
+                Войти
+            </button>
+        </form>
+        <p class="mt-4 text-gray-400 text-center fade-in delay-200">
+            Нет аккаунта? <a href="{% url 'users:register' %}" class="text-emerald-400 hover:text-emerald-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-emerald-400 after:transition-all after:duration-300 hover:after:w-full">Зарегистрироваться</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'main/base.html' %}
+{% block title %}Курсы - CodeMaster{% endblock %}
+{% block content %}
+<section id="courses" class="py-20 px-4">
+    <div class="container mx-auto" x-data="courseModal()">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4 fade-in">Популярные курсы</h2>
+            <p class="text-gray-400 text-lg fade-in-delay-100">Выберите направление и начните свой путь в программировании</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for course in courses %}
+            <div class="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden course-card fade-in-delay-200 cursor-pointer"
+                 @click="openModal('{{ course.id }}', '{{ course.title|escapejs }}', '{{ course.price }}')">
+                <div class="w-full h-48 bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center">
+                    <i class="fas fa-code text-6xl text-white"></i>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">{{ course.title }}</h3>
+                    <p class="text-gray-400 mb-4">{{ course.description }}</p>
+                    <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-clock"></i>
+                            40 часов
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-users"></i>
+                            2,500 студентов
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1 mb-4">
+                        <i class="fas fa-star text-yellow-400 star"></i>
+                        <i class="fas fa-star text-yellow-400 star"></i>
+                        <i class="fas fa-star text-yellow-400 star"></i>
+                        <i class="fas fa-star text-yellow-400 star"></i>
+                        <i class="fas fa-star text-yellow-400 star"></i>
+                        <span class="text-gray-400 ml-2">4.9 (324 отзыва)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-2xl font-bold text-emerald-400">₽{{ course.price }}</span>
+                            <span class="text-gray-400 line-through ml-2">₽{{ course.price|add:5000 }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Modal -->
+        <div x-show="isOpen"
+             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+             @click.away="closeModal()"
+             x-cloak>
+            <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 max-w-md w-full">
+                <h3 class="text-xl font-semibold text-white mb-4">Подтверждение покупки</h3>
+                <p class="text-gray-400 mb-4">
+                    Вы хотите приобрести курс <strong x-text="selectedCourse.title"></strong> за ₽<span x-text="selectedCourse.price"></span>?
+                </p>
+                <div class="flex justify-end gap-4">
+                    <button @click="closeModal()"
+                            class="btn-animate bg-gray-600 hover:bg-gray-700 py-2 px-4 rounded-lg font-medium text-white">
+                        Отмена
+                    </button>
+                    <a :href="'{% url 'orders:checkout' 0 %}'.replace('0', selectedCourse.id)"
+                       class="btn-animate bg-emerald-600 hover:bg-emerald-700 py-2 px-4 rounded-lg font-medium text-white">
+                        Оплатить
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function courseModal() {
+        return {
+            isOpen: false,
+            selectedCourse: {
+                id: null,
+                title: '',
+                price: ''
+            },
+            openModal(id, title, price) {
+                this.selectedCourse = { id, title, price };
+                this.isOpen = true;
+            },
+            closeModal() {
+                this.isOpen = false;
+                this.selectedCourse = { id: null, title: '', price: '' };
+            }
+        }
+    }
+</script>
+{% endblock %}

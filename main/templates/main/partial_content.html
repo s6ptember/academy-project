@@ -1,0 +1,27 @@
+{% load format_text %}
+<div id="{{ content_type }}-{{ content.id }}" 
+     class="mb-6 p-4 sm:p-5 bg-gray-800 border border-gray-700 rounded-lg card-hover visible overflow-hidden"
+     x-data="{ id: '{{ content_type }}-{{ content.id }}' }" 
+     x-intersect="activeContent = id"
+     x-init="gsap.from($el, { opacity: 0, y: 30, duration: 0.5 })"
+     style="opacity: 1 !important;">
+    {% if content_type == 'block' %}
+    <h2 class="text-lg sm:text-2xl font-semibold text-white mb-3">{{ content.title }}</h2>
+    <div class="prose prose-invert text-sm sm:text-base" style="opacity: 1 !important; overflow-x: auto;">{{ content.content | format_text | safe }}</div>
+    {% else %}
+    <div class="ml-3 sm:ml-4 mt-2 sm:mt-3">
+        <h3 class="text-base sm:text-xl font-medium text-white mb-2">{{ content.title }}</h3>
+        <div class="prose prose-invert text-sm sm:text-base" style="opacity: 1 !important; overflow-x: auto;">{{ content.content | format_text | safe }}</div>
+    </div>
+    {% endif %}
+</div>
+{% if next_block_id %}
+<div hx-get="{% if next_subblock_id %}
+                {% url 'main:load_next_content_with_subblock' course_id=course_id current_block_id=next_block_id current_subblock_id=next_subblock_id %}
+            {% else %}
+                {% url 'main:load_next_content' course_id=course_id current_block_id=next_block_id %}
+            {% endif %}"
+     hx-trigger="revealed"
+     hx-swap="afterend">
+</div>
+{% endif %}

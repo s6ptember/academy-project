@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+{% block title %}Оплата курса - CodeMaster{% endblock %}
+{% block content %}
+<section class="py-20 px-4">
+    <div class="container mx-auto max-w-2xl">
+        <h1 class="text-4xl font-bold mb-6 text-white fade-in">Оформление заказа</h1>
+        {% if messages %}
+            <div class="mb-4">
+                {% for message in messages %}
+                    <div class="p-4 rounded-lg {% if message.tags == 'success' %}bg-green-800 text-green-200{% else %}bg-red-800 text-red-200{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 fade-in delay-100">
+            <h2 class="text-2xl font-semibold text-white mb-4">Курс: {{ course.title }}</h2>
+            <p class="text-gray-400 mb-4">{{ course.description }}</p>
+            <div class="mb-4">
+                <span class="text-gray-400">Стоимость:</span>
+                <span class="text-2xl font-bold text-emerald-400">{{ total_price }} Руб.</span>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="w-full btn-animate bg-emerald-600 hover:bg-emerald-700 py-3 px-4 rounded-lg font-medium text-white">
+                    Оплатить через ЮKassa
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

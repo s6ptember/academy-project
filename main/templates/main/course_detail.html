@@ -1,0 +1,63 @@
+{% extends 'main/base.html' %}
+{% load format_text %}
+{% block title %}{{ course.title }} - CodeMaster{% endblock %}
+{% block sidebar_content %}
+<div class="mt-4 sm:mt-6 px-4 sm:px-0">
+    <h2 class="text-lg sm:text-xl font-bold mb-4 text-white">Содержание</h2>
+    <ul class="space-y-2 text-sm sm:text-base">
+        {% for block in course.blocks.all %}
+        <li :class="{ 'font-bold text-emerald-500': activeContent === 'block-{{ block.id }}' }">
+            <a href="#block-{{ block.id }}" class="text-gray-300 hover:text-emerald-400">{{ block.title }}</a>
+            <ul class="ml-3 sm:ml-4 space-y-1 mt-1">
+                {% for subblock in block.subblocks.all %}
+                <li :class="{ 'font-bold text-emerald-500': activeContent === 'subblock-{{ subblock.id }}' }">
+                    <a href="#subblock-{{ subblock.id }}" class="text-gray-400 hover:text-emerald-400">{{ subblock.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+{% block content %}
+<section class="py-12 px-4 sm:py-16">
+    <div class="container mx-auto">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-6 text-white fade-in bg-gradient-to-r from-emerald-400 to-cyan-600 bg-clip-text text-transparent">{{ course.title }}</h1>
+        <p class="text-gray-400 text-sm sm:text-base mb-8 fade-in delay-100">{{ course.description }}</p>
+        {% if first_block %}
+        <div id="block-{{ first_block.id }}" 
+             class="mb-6 p-5 bg-gray-800 border border-gray-700 rounded-lg card-hover fade-in delay-200 visible"
+             x-data="{ id: 'block-{{ first_block.id }}' }" 
+             x-intersect="activeContent = id"
+             x-init="console.log('First block initialized: block-{{ first_block.id }}')">
+            <h2 class="text-lg sm:text-2xl font-semibold text-white mb-4">{{ first_block.title }}</h2>
+            <div class="prose prose-invert text-sm sm:text-base">{{ first_block.content | format_text | safe }}</div>
+        </div>
+        {% if first_subblock %}
+        <div id="subblock-{{ first_subblock.id }}" 
+             class="mb-6 p-5 bg-gray-800 border border-gray-700 rounded-lg card-hover fade-in delay-300 visible"
+             x-data="{ id: 'subblock-{{ first_subblock.id }}' }" 
+             x-intersect="activeContent = id"
+             x-init="console.log('First subblock initialized: subblock-{{ first_subblock.id }}')">
+            <div class="ml-4 sm:ml-6 mt-3 sm:mt-4">
+                <h3 class="text-base sm:text-xl font-medium text-white mb-2">{{ first_subblock.title }}</h3>
+                <div class="prose prose-invert text-sm sm:text-base">{{ first_subblock.content | format_text | safe }}</div>
+            </div>
+        </div>
+        <div hx-get="{% url 'main:load_next_content_with_subblock' course_id=course.id current_block_id=first_block.id current_subblock_id=first_subblock.id %}"
+             hx-trigger="revealed"
+             hx-swap="afterend"
+             x-init="console.log('HTMX trigger initialized for first subblock')">
+        </div>
+        {% else %}
+        <div hx-get="{% url 'main:load_next_content' course_id=course.id current_block_id=first_block.id %}"
+             hx-trigger="revealed"
+             hx-swap="afterend"
+             x-init="console.log('HTMX trigger initialized for first block')">
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
